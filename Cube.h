@@ -6,16 +6,23 @@
 #define CUBE_CUBE_H
 #define maxlen 25
 #define minlen 0
+
+#include <random>
 #include <iostream>
 
-class Cube {
+class Dice {
 
     int X,Y,Z;
 
 public:
-    Cube() : X(1), Y(2), Z(3) {}
 
-    Cube(Cube& a) = default;
+    Dice() : X(1), Y(2), Z(3) {}
+
+    Dice(Dice& a) = default;
+
+    ~Dice() = default;
+
+private:
 
     void rotate_x() {
         int tmp_y = Y;
@@ -35,14 +42,16 @@ public:
         Y=tmp_x;
     }
 
-    static void gen_random(char *s) {
+    void gen_random(char *s) {
         int len;
-        len = rand() % (maxlen - minlen + 1) + minlen;
-        static const char alphanum[] =
-                "xyz";
-
+        std::random_device rd;  //Will be used to obtain a seed for the random number engine
+        std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+        std::uniform_int_distribution<> dis1(minlen, maxlen);
+        len = dis1(gen);
+        static const char alphanum[] = "xyz";
+        std::uniform_int_distribution<> dis2(0, sizeof(alphanum)-2);
         for (int i = 0; i < len; ++i) {
-            s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+            s[i] = alphanum[dis2(gen)];
         }
 
         s[len] = 0;
@@ -55,9 +64,10 @@ public:
     }
 
     void GetCube() {
-        std::cout << "Y:" << Y << "\n";
-        std::cout << "X:" << X << "\n";
-        std::cout << "Z:" << Z << "\n";
+        std::cout << "Y(up):" << Y << "\n";
+        std::cout << "X(right):" << X << "\n";
+        std::cout << "Z(left):" << Z << "\n";
+
     }
 
     void RollCube(char* r) {
