@@ -1,9 +1,9 @@
 //
-// Created by guy on 5/30/19.
+// Created by GuySadoun on 5/30/19.
 //
 
-#ifndef CUBE_CUBE_H
-#define CUBE_CUBE_H
+#ifndef DICE_DICE_H
+#define DICE_DICE_H
 #define maxlen 25
 #define minlen 0
 
@@ -100,4 +100,4 @@ public:
 };
 
 
-#endif //CUBE_CUBE_H
+#endif //DICE_DICE_H
